@@ -10,7 +10,7 @@ This work has been funded under the TODO GRANT...
 
 The layout of this repository is as follows:
 1. [Data](data/README.md) - the location of how we verified our results and information related to links of memory dumps that can be used to test V8.
-2. [Plugin](plugin/README.md) - this contains the volatility3 plugin that can be used for volatility2.
+2. [Plugin](plugin/README.md) - this contains the volatility2 plugin that can be used.
 
 # Usage
 
