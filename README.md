@@ -14,18 +14,36 @@ The layout of this repository is as follows:
 # V8 Dataset
 
 For this research, created was a dataset that can be used by anyone to analyze the objects that were found from a memory dump.
-These dumps were created with a modified version of the plugin that would write stats to a csv. The jupyter-notebook containining this informatio The memory images used for the creation set can be found from (LINK HERE TOOD).
+These dumps were created with a modified version of the plugin that would write stats to a csv. The jupyter-notebook containining this informatio The memory images used for the creation set can be found from (here)[https://unhnewhaven-my.sharepoint.com/:f:/g/personal/hjohn5_unh_newhaven_edu/EpcBPe3HJbFHmVOhcKpFe3MBGR3jgHc99Jkv16QNDKALXA?e=tARW24].
 Depending on changes in volatility, it is subject to change and new developments with the plugin.
 
 # Usage
 
-## Usage1
+## V8_instancetype_addr
+```bash
+$ python vol.py -f dump.vmem v8_instancetypeaddr
+```
 
-## Usage 2
 
-## Usage 3
+## V8_extractobjects
+```bash
+$ python vol.py -f dump.vmem v8_extractobjects
+```
 
-The plugin makes use of the volatility3 framework and memory dumps to look at processes such as node, discord, etc. 
+## V8_findalltypes
+```bash
+$ python vol.py -f dump.vmem v8_findalltypes
+```
+
+## v8extractprops
+
+```bash
+$ python vol.py -f dump.vmem v8_extractprops
+```
+
+The plugin makes use of the volatility2 framework and memory dumps to look at processes such as node, discord, etc. 
 
 
 # Authors
+
+TODO
