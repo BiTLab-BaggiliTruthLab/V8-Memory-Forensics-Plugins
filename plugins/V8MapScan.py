@@ -48,7 +48,7 @@ YARA_opcodes = {
 
 # 0x03e3ff3c1160
 # 
-class V8_ExtractProperties(common.AbstractWindowsCommand):
+class v8_extractprops(common.AbstractWindowsCommand):
     def init(self, config, *args, **kwargs):
         common.AbstractWindowsCommand.init(self, config, *args, **kwargs)
         config.add_option('OUTDIR', short_option='Z', default=None,
@@ -95,7 +95,7 @@ class V8_ExtractProperties(common.AbstractWindowsCommand):
         print('written without errors')
 
 
-class V8_FindAllTypes(common.AbstractWindowsCommand):
+class v8_findalltypes(common.AbstractWindowsCommand):
     """List all object types for findjsinstances"""
 
     def calculate(self):
@@ -148,11 +148,10 @@ class V8_FindAllTypes(common.AbstractWindowsCommand):
             ("Name", str),
             ("Instance Type", int),
             ("Map Count", int)],
-            self.generator(data)
-        )
+            self.generator(data))
 
 
-class V8_InstanceTypeAddr(common.AbstractWindowsCommand):
+class v8_instancetypeaddr(common.AbstractWindowsCommand):
     """List all objects of a specific typename for jsprint"""
 
     def calculate(self):
@@ -161,7 +160,6 @@ class V8_InstanceTypeAddr(common.AbstractWindowsCommand):
 
         addr_space = utils.load_as(self._config)
         tasks = win32.tasks.pslist(addr_space)
-        maps = []
         not_maps = []
 
         for task in tasks:
@@ -179,29 +177,19 @@ class V8_InstanceTypeAddr(common.AbstractWindowsCommand):
                 maps = get_maps(meta_map, proc_addr_space)
                 valid_maps = get_valid_maps(maps, proc_addr_space)
 
-                type_name = input("Please enter the type name: ")
-                print("Type name entered: " + type_name)
-                type_name = "Invalid Typename"
-                objs = get_obj_addrs_by_name(type_name, valid_maps, proc_addr_space)
-
-                return objs
-
-    def generator(self, data):
-        for count in range(len(data)):
-            yield (0, [
-                int(count + 1),
-                RenderType.Address64(data[count])
-            ])
-
-    def unified_output(self, data):
-        return TreeGrid([
-            ("Number", int),
-            ("Object Address", RenderType.Address64)],
-            self.generator(data)
-        )
-
-
-class V8_ExtractObjects(common.AbstractWindowsCommand):
+                type_name = input("Please enter the Instance Number: ")
+                print("Instance Number entered: " + str(type_name))
+                objs = get_objs_by_inst_type(type_name, valid_maps, proc_addr_space)
+                print("Number   Object Address")
+                count = 1
+                for obj in objs:
+                    print(str(count) + "        " + str(hex(obj.address)))
+                    #print(str(hex(obj.map.instance_type)))
+                    #print(obj.data)
+                    count = count + 1
+                exit()
+                
+class v8_extractobjects(common.AbstractWindowsCommand):
     """Print the details of a specific object"""
 
     def calculate(self):
@@ -222,10 +210,10 @@ class V8_ExtractObjects(common.AbstractWindowsCommand):
                 proc_addr_space = task.get_process_address_space()
                 scanner = malfind.DiscontigYaraScanner(proc_addr_space, rulesets)
 
-                # obj_address = input("Please enter the object address: ")
+                obj_address = input("Please enter the object address: ")
                 # obj_address = 0x344bd600510 # 0x421 Object
                 # obj_address = 0x69637234d0 # 0x75 Array
-                obj_address = 0x6963708ce8  # 0x8 String
+                # obj_address = 0x6963708ce8  # 0x8 String
                 print("Address entered: " + str(hex(obj_address)))
 
                 return get_object_by_addr(obj_address, proc_addr_space)
@@ -382,6 +370,17 @@ def get_objs_by_name(name, valid_maps, addr_space):
             objs += get_objects(mp, addr_space, 0, 100)
     return objs
 
+def get_objs_by_name(inst_type, valid_maps, addr_space):
+    objs = []
+    count = 0
+    max = input("Enter MAX Number:")
+    for mp in valid_maps:
+        if mp.instance_type == inst_type:
+            objs += get_objects(mp, addr_space, count, max)
+            count = len(objs)
+            if count >= max:
+                return objs
+    return objs
 
 def get_obj_addrs_by_name(name, valid_maps, addr_space):
     objs = []
