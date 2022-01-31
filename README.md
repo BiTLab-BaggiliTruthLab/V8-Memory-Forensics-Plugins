@@ -11,6 +11,8 @@ The layout of this repository is as follows:
 
 2. [V8MapScan.py](plugins/V8MapScan.py) - This is the volatility plugin created to analyze memory dumps containing the V8 JavaScript Engine. It is written in volatility2 currrently and may be updated to volatility3.
 
+3. [V8_32BitVtypes.py](plugins/V8_32BitVTypes.py) - This is a version that contains usage of vtypes that works for 32 bit applications discord. This style would be used for porting over to volatility3's ISF.
+
 # V8 Dataset
 
 For this research, created was a dataset that can be used by anyone to analyze the objects that were found from a memory dump.
