@@ -48,4 +48,8 @@ The plugin makes use of the volatility2 framework and memory dumps to look at pr
 
 # Authors
 
-TODO
+- Enoch Wang
+- Samuel Zurowski - [https://samuelzurowski.com/](https://samuelzurowski.com/) 
+- Orion Duffy
+- Tyler Thomas
+- Ibrahim Baggili
