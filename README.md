@@ -2,7 +2,7 @@
 
 The V8 Engine used for Javascript can contain valuable information for investigators that resides within volatile RAM. This repo is a tool to triage memory dumps to discover, determine, and present data by traversing V8 data structures. This repo contains all the information about the volatility plugin 
 
-This work has been funded under the NSA Grant: TODO
+This work has been funded under the NSA Grant: H98230-20-1-0328
 
 # Repository Structure
 
