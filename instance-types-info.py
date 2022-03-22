@@ -58,7 +58,6 @@ class InstanceTypes:
     kShortcutTypeMask = cc.c_uint32(kIsNotStringMask.value | kIsNotInternalizedMask.value | kStringRepresentationMask.value)
     kShortcutTypeTag  = cc.c_uint32(STR_REP_TAG.kConsStringTag.value | kNotInternalizedTag.value)
 
-    # String Types TODO: REVERSE ENGINEER THESE TYPES
     INTERNALIZED_STRING_TYPE                            = kTwoByteStringTag.value | STR_REP_TAG.kSeqStringTag.value | kInternalizedTag.value
     ONE_BYTE_INTERNALIZED_STRING_TYPE                   = kOneByteStringTag.value | STR_REP_TAG.kSeqStringTag.value | kInternalizedTag.value
     EXTERNAL_INTERNALIZED_STRING_TYPE                   = kTwoByteStringTag.value | STR_REP_TAG.kExternalStringTag.value | kInternalizedTag.value
@@ -89,7 +88,7 @@ class InstanceTypes:
     LAST_JS_OBJECT_TYPE = 2132 # THIS NEEDS TO BE FIXED L8R
     LAST_JS_CUSTOM_ELEMENTS_OBJ_TYPE = 1041
 
-    # convenient names for things where the generated name is akward
+    # convenient names for things where the generated name is wierd
     FIRST_HEAP_OBJECT_TYPE  = 0 # from gen instance-type file make sure to check l8r
     LAST_HEAP_OBJECT_TYPE   = 2132 # from gen instance-type as well fix l8r
     BIG_INT_BASE_TYPE       = 65
