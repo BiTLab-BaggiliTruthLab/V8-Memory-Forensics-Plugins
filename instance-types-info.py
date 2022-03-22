@@ -47,7 +47,7 @@ class InstanceTypes:
     # or isn't (if set)
     kIsNotInternalizedMask = cc.c_uint32(1 << 5)
     kNotInternalizedTag    = cc.c_uint32(1 << 5)
-    kInternalizedTag       = cc.c_uint32(0);
+    kInternalizedTag       = cc.c_uint32(0)
 
     # A ConsString with an empty string as the right side is a candidate
     # for being shortcut by the garbage collector. We don't allocate any
