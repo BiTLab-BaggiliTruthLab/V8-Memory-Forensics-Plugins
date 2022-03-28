@@ -62,9 +62,10 @@ class v8_extractprops(common.AbstractWindowsCommand):
         tasks = win32.tasks.pslist(addr_space)
         maps = []
         not_maps = []
-
+        pid = input("Enter PID: ")
+        instancetype = input("Enter Instance Type Hex: ")
         for task in tasks:
-            if str(task.ImageFileName) != 'node.exe':
+            if task.UniqueProcessId != pid:
                 continue
             else:
                 print("Scanning {0} pid: {1}".format(task.ImageFileName, task.UniqueProcessId))
@@ -78,16 +79,20 @@ class v8_extractprops(common.AbstractWindowsCommand):
                 maps = get_maps(meta_map, proc_addr_space)
                 valid_maps = get_valid_maps(maps, proc_addr_space)
 
-                objs = get_objs_by_inst_type(0x75, valid_maps, proc_addr_space)
+                objs = get_objs_by_inst_type(instancetype, valid_maps, proc_addr_space)
                 # objs = get_arrays(valid_maps, proc_addr_space)
                 count = 0
+                myfile = open('extractProperties.txt', 'a')
+                myfile.writelines("%s\n" % str(obj.data) for obj in objs)
                 for obj in objs:
-                    # print str(hex(obj))
+                    print(str(obj))
                     print(str(hex(obj.address)))
                     print(str(hex(obj.map.instance_type)))
                     print(obj.data)
                     count += 1
                 print("Total number: " + str(count))
+                myfile.close()
+                print("extractProperties.txt written")
 
                 # pp.pprint(collections.Counter(types))
 
@@ -106,9 +111,9 @@ class v8_findalltypes(common.AbstractWindowsCommand):
         tasks = win32.tasks.pslist(addr_space)
         maps = []
         not_maps = []
-
+        pid = input("Enter PID: ")
         for task in tasks:
-            if str(task.ImageFileName) != 'node.exe':
+            if task.UniqueProcessId != pid:
                 continue
             else:
                 print("Scanning {0} pid: {1}".format(task.ImageFileName, task.UniqueProcessId))
